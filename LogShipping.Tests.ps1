@@ -12,6 +12,31 @@ param(
     [switch]$Detailed
 )
 
+<#
+.SYNOPSIS 
+Collection of tests to see of log shipping is still working
+
+.DESCRIPTION
+Collection of tests to see of log shipping is still working.
+The overall test only looks at the status for the database.
+The detailed test will go into the backup, copy en restore times.
+
+.PARAMETER SqlServer
+SQL Server instance. You must have sysadmin access and server version must be SQL Server version 2000 or greater.
+
+.PARAMETER SqlCredential
+Allows you to login to servers using SQL Logins as opposed to Windows Auth/Integrated/Trusted. To use:
+$scred = Get-Credential, then pass $scred object to the -Credential parameter. 
+To connect as a different Windows user, run PowerShell as that user.
+
+.PARAMETER Database
+Supply the name(s) to filter out specfic databases
+
+.PARAMETER Detailed
+Shows more specific tests to find what has gone wrong.
+
+#>
+
 # Check if the modules are present
 if ((Get-Module -ListAvailable -Name dbatools, Pester).Count -eq 2) {
     # Import the modules
