@@ -53,7 +53,7 @@ if ((Get-Module -ListAvailable -Name dbatools, Pester).Count -eq 2) {
             $query = "EXEC sp_help_log_shipping_monitor"
 
             # Get the results from the log shippingmonitor procedure
-            $result = Invoke-Sqlcmd2 -ServerInstance DRSQL -Database master -Query $query -Credential $Credential
+            $result = Invoke-Sqlcmd2 -ServerInstance $SqlServer -Database master -Query $query -Credential $Credential
         
             # Split the results in the primary and secondary databases
             if ($Database) {
