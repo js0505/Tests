@@ -119,15 +119,3 @@ if ((Get-Module -ListAvailable -Name dbatools, Pester).Count -eq 2) {
 else {
     Write-Warning "Please check if the module dbatools or Pester is installed!"
 }
-
-
-
-
-
-
-
-
-
-
-
-
