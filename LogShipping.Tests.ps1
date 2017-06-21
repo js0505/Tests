@@ -38,14 +38,14 @@ param(
 
 
 # Check if the modules are present
-if ((Get-Module -ListAvailable -Name dbatools, Pester).Count -eq 2) {
+if ((Get-Module -ListAvailable -Name dbatools, Pester | Sort-Object -Unique).Count -eq 2) {
     try {
         # Import the modules
         Import-Module dbatools
         Import-Module Pester
 
         # test the connections to the instance
-        $result = Test-SqlConnection -SqlServer $SqlServer -SqlCredential $Credential
+        $result = Test-DbaConnection -SqlServer $SqlServer -SqlCredential $Credential
 
         # If the connection was succesfull
         if ($result[-1].ConnectSuccess) {
@@ -54,7 +54,7 @@ if ((Get-Module -ListAvailable -Name dbatools, Pester).Count -eq 2) {
                 $query = "EXEC sp_help_log_shipping_monitor"
 
                 # Get the results from the log shippingmonitor procedure
-                $result = Invoke-Sqlcmd2 -ServerInstance $SqlServer -Database master -Query $query -Credential $Credential
+                $result = Invoke-DbaSqlcmd -ServerInstance $SqlServer -Database master -Query $query -Credential $Credential
 
                 # Split the results in the primary and secondary databases
                 if ($Database) {
